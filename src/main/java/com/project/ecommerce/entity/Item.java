@@ -1,4 +1,4 @@
-package com.project.inventory_management.entity;
+package com.project.ecommerce.entity;
 
 import jakarta.persistence.*;
 

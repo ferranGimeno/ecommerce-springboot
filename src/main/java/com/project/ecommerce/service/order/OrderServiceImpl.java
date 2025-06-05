@@ -1,18 +1,20 @@
-package com.project.inventory_management.service;
+package com.project.ecommerce.service.order;
 
-import com.project.inventory_management.entity.Item;
-import com.project.inventory_management.entity.Order;
-import com.project.inventory_management.repository.ItemRepository;
-import com.project.inventory_management.repository.OrderRepository;
+import com.project.ecommerce.entity.Item;
+import com.project.ecommerce.entity.Order;
+import com.project.ecommerce.repository.ItemRepository;
+import com.project.ecommerce.repository.OrderRepository;
 import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
-public class OrderService implements BaseService<Order>{
+public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -73,15 +75,16 @@ public class OrderService implements BaseService<Order>{
         }
     }
 
-    /*public List<Order> buyItems(List<Item> itemList) throws Exception {
+    public List<Order> buyItems(List<Item> itemList) throws Exception {
         try{
             if(checkStock(itemList)){
-                return
+                return List.of();
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-    }*/
+        return List.of();
+    }
 
     public boolean checkStock(List<Item> itemList) {
         for (int i = 0; i < itemList.size(); i++){
