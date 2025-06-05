@@ -1,6 +1,6 @@
-package com.project.inventory_management.repository;
+package com.project.ecommerce.repository;
 
-import com.project.inventory_management.entity.Item;
+import com.project.ecommerce.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

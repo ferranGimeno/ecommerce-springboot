@@ -1,7 +1,7 @@
-package com.project.inventory_management.controller;
+package com.project.ecommerce.controller;
 
-import com.project.inventory_management.entity.Item;
-import com.project.inventory_management.service.ItemService;
+import com.project.ecommerce.entity.Item;
+import com.project.ecommerce.service.item.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/buy")
 public class BuyController {
     @Autowired
-    ItemService itemService;
+    ItemServiceImpl itemServiceImpl;
 
     @PostMapping("")
     public ResponseEntity<?> buyItems(@RequestBody List<Item> itemList){
