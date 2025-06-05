@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Table(name = "item")
 public class Item implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -19,4 +20,19 @@ public class Item implements Serializable {
     @Column(name = "price")
     private Integer price;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
 }
