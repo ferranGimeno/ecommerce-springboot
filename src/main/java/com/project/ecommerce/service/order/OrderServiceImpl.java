@@ -82,8 +82,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> buyItems(List<Item> itemList) throws Exception {
         try{
             List<Order> orderList = new ArrayList<>();
-            for (Item item : itemList) {
-                if (checkStock(item)) {
+            //Check stock for entire order, if there is some item not possible, return error
+            if (checkStock(itemList)) {
+                for (Item item : itemList) {
                     Order order = new Order();
                     order.setItemId(item.getId());
                     order.setQuantity(item.getQuantity());
@@ -92,21 +93,23 @@ public class OrderServiceImpl implements OrderService {
                     orderRepository.save(order);
                     orderList.add(order);
                     removeStock(item);
-                }else{
-                    throw new Exception("There are items with no enough stock");
                 }
+                return orderList;
+            }else{
+                throw new Exception("There are items with not enough stock");
             }
-            return orderList;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
-    public boolean checkStock(Item item) throws Exception {
+    public boolean checkStock(List<Item> itemList) throws Exception {
         try {
-            Item itemRetrieved = itemServiceImpl.findById(item.getId());
-            if (itemRetrieved.getQuantity() < item.getQuantity()) {
-                return false;
+            for (Item item : itemList) {
+                Item itemRetrieved = itemServiceImpl.findById(item.getId());
+                if (itemRetrieved.getQuantity() < item.getQuantity()) {
+                    return false;
+                }
             }
             return true;
         } catch (Exception e) {
