@@ -54,11 +54,15 @@ La app está preconfigurada para usar H2 en memoria. Puedes acceder a la consola
 
 ## 📦 Endpoints disponibles (ejemplos)
 
-| Método | Endpoint              | Descripción                        |
-|--------|------------------------|------------------------------------|
-| GET    | `/api/products`        | Listar todos los productos         |
-| POST   | `/api/products`        | Crear un nuevo producto            |
-| POST   | `/api/purchase/{id}`   | Simular compra de un producto (stock -1) |
+| Método | Endpoint                  | Descripción                                     |
+| ------ | ------------------------- | ----------------------------------------------- |
+| GET    | `/api/items`              | Listar todos los ítems                          |
+| GET    | `/api/items/{id}`         | Obtener un ítem por su ID                       |
+| POST   | `/api/items/create`       | Crear un nuevo ítem                             |
+| POST   | `/api/items/create-items` | Crear múltiples ítems                           |
+| PUT    | `/api/items/update/{id}`  | Actualizar un ítem por su ID                    |
+| DELETE | `/api/items/delete/{id}`  | Eliminar un ítem por su ID                      |
+| POST   | `/api/buy`                | Simular la compra de productos (crea una orden) |
 
 ---
 
