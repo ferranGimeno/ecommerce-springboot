@@ -88,8 +88,8 @@ The app is pre-configured to use an in-memory H2 database. You can access the we
 
 ```bash
 # Clone the repository
-git clone https://github.com/ferranGimeno/eCommerce.git
-cd eCommerce
+git clone https://github.com/ferranGimeno/ecommerce-springboot.git
+cd ecommerce-springboot
 
 # Run with Maven
 ./mvnw spring-boot:run
