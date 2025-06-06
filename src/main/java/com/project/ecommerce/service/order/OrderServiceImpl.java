@@ -4,9 +4,9 @@ import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.repository.ItemRepository;
 import com.project.ecommerce.repository.OrderRepository;
+import com.project.ecommerce.service.item.ItemServiceImpl;
 import jakarta.transaction.Transactional;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private ItemServiceImpl itemServiceImpl;
 
     @Override
     @Transactional
@@ -91,6 +94,7 @@ public class OrderServiceImpl implements OrderService {
                     order.setUserId(1L);
                     orderRepository.save(order);
                     orderList.add(order);
+                    removeStock(item);
                 }else{
                     throw new Exception("There are items with no enough stock");
                 }
@@ -108,4 +112,17 @@ public class OrderServiceImpl implements OrderService {
         }
         return true;
     }
+
+    public void removeStock(Item item) throws Exception {
+        try{
+            Optional<Item> itemRetrieved = itemRepository.findById(item.getId());
+            Item updatedItem = itemRetrieved.get();
+            Integer stockToRemove = item.getQuantity();
+            updatedItem.setQuantity(itemRetrieved.get().getQuantity() - stockToRemove);
+            itemServiceImpl.update(item.getId(), item);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }
