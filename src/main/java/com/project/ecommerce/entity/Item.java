@@ -42,4 +42,24 @@ public class Item implements Serializable {
     public Float getPrice() {
         return price;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 }
