@@ -79,11 +79,11 @@ La app está preconfigurada para usar H2 en memoria. Puedes acceder a la consola
 
 ▶️ Cómo ejecutar el proyecto
 
-# Clonar el repositorio
+## Clonar el repositorio
 git clone https://github.com/tu-usuario/ecommerce-springboot.git
 cd ecommerce-springboot
 
-# Ejecutar con Maven
+## Ejecutar con Maven
 ./mvnw spring-boot:run
 
 ---
