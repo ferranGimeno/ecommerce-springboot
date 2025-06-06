@@ -1,6 +1,7 @@
 package com.project.ecommerce.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +16,9 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(name = "creationDate")
     private Date creationDate;
 
     public Long getId() {

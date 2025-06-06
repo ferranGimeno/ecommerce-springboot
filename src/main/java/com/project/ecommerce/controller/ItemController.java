@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/items")
@@ -31,7 +33,7 @@ public class ItemController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<?> saveItem(@RequestBody Item item) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(itemServiceImpl.save(item));
@@ -40,7 +42,16 @@ public class ItemController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/create-items")
+    public ResponseEntity<?> saveItemList(@RequestBody List<Item> itemList) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(itemServiceImpl.createItems(itemList));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error\"}");
+        }
+    }
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Item item) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(itemServiceImpl.update(id, item));
@@ -49,7 +60,7 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(itemServiceImpl.delete(id));

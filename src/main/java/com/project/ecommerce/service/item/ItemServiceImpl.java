@@ -4,10 +4,12 @@ import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
@@ -67,5 +69,12 @@ public class ItemServiceImpl implements ItemService {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    public List<Item> createItems(List<Item> itemList) {
+        for (int i = 0; i < itemList.size(); i++) {
+            itemRepository.save(itemList.get(i));
+        }
+        return itemList;
     }
 }
