@@ -17,6 +17,9 @@ public class Item implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @Column(name = "price")
     private Float price;
 
@@ -30,6 +33,10 @@ public class Item implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
     }
 
     public Float getPrice() {
