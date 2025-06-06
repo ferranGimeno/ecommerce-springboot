@@ -18,7 +18,7 @@ public class Item implements Serializable {
     private String description;
 
     @Column(name = "price")
-    private Integer price;
+    private Float price;
 
     public Long getId() {
         return id;
@@ -32,7 +32,7 @@ public class Item implements Serializable {
         return description;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 }

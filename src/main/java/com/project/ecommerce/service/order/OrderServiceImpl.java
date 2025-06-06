@@ -1,16 +1,17 @@
 package com.project.ecommerce.service.order;
 
-import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.repository.ItemRepository;
 import com.project.ecommerce.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
@@ -75,21 +76,23 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public List<Order> buyItems(List<Item> itemList) throws Exception {
+    public List<Order> buyItems(List<Order> orderList) throws Exception {
         try{
-            if(checkStock(itemList)){
-                return List.of();
+            for (int i = 0; i < orderList.size(); i++) {
+                //TODO check stock
+                //if (checkStock(orderList.get(i))) {}
+                orderRepository.save(orderList.get(i));
             }
+            return orderList;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        return List.of();
     }
 
-    public boolean checkStock(List<Item> itemList) {
-        for (int i = 0; i < itemList.size(); i++){
-            if(itemRepository.findById(itemList.get(i).getId()).isEmpty()) return false;
+    public boolean checkStock(Order order) {
+        if(true){
+            return true;
         }
-        return true;
+        return false;
     }
 }
