@@ -75,14 +75,12 @@ The app is pre-configured to use an in-memory H2 database. You can access the we
 
 ```json
 {
-  "nombre": "Teclado mecánico",
-  "categoria": "Electrónica",
-  "precio": 49.99,
-  "stock": 10
+  "name": "Teclado mecánico",
+  "description": "Electrónica",
+  "quantity": 10,
+  "price": 49.99
 }
 ```
-
-> 💡 *If you're adapting for an English-speaking API, consider using `"name"`, `"category"`, `"price"`, and `"stock"` instead of `"nombre"`, etc.*
 
 ---
 
