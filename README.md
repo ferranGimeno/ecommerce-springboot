@@ -1,17 +1,19 @@
 # 🛒 E-commerce Backend (Spring Boot + H2)
 
-Este proyecto es una aplicación backend de e-commerce desarrollada con **Spring Boot** que simula un sistema básico de compra de productos. Está conectada a una base de datos **H2 en memoria**, ideal para pruebas y desarrollo rápido.
-
-## 🚀 Funcionalidades
-
-- 🔍 Consultar productos disponibles.
-- 🛍️ Simular la compra de productos (reduce el stock).
-- 🧾 Registrar productos (POST).
-- 🧹 Base de datos H2 en memoria, se resetea en cada reinicio.
+This project is a backend e-commerce application built with **Spring Boot** that simulates a basic product purchasing system. It uses an **in-memory H2 database**, perfect for testing and rapid development.
 
 ---
 
-## 🧑‍💻 Tecnologías utilizadas
+## 🚀 Features
+
+- 🔍 View available products.
+- 🛍️ Simulate product purchases (stock reduction).
+- 🧾 Register new products (POST).
+- 🧹 In-memory H2 database (resets on every restart).
+
+---
+
+## 🧑‍💻 Technologies Used
 
 - Java 21+
 - Spring Boot
@@ -19,78 +21,86 @@ Este proyecto es una aplicación backend de e-commerce desarrollada con **Spring
 - Spring Data JPA
 - H2 Database
 - Maven
-  
+
 ---
 
-## 🗃️ Estructura del proyecto
+## 🗃️ Project Structure
+
+```
 src
 └── main
-├── java
-│ └── com.project.ecommerce
-│ ├── controller
-│ ├── model
-│ ├── repository
-│ └── service
-└── resources
-└── application.properties
+    ├── java
+    │   └── com.project.ecommerce
+    │       ├── controller
+    │       ├── model
+    │       ├── repository
+    │       └── service
+    └── resources
+        └── application.properties
+```
 
 ---
 
-## ⚙️ Configuración de base de datos (H2)
+## ⚙️ Database Configuration (H2)
 
-La app está preconfigurada para usar H2 en memoria. Puedes acceder a la consola web en:
+The app is pre-configured to use an in-memory H2 database. You can access the web console at:
 
 📍 `http://localhost:8080/h2-console`
 
-**Parámetros de conexión:**
+**Connection Parameters:**
 
-| Campo        | Valor               |
-|--------------|---------------------|
-| JDBC URL     | `jdbc:h2:mem:testdb`|
-| User Name    | `sa`                |
-| Password     |                     |
-
----
-
-## 📦 Endpoints disponibles (ejemplos)
-
-| Método | Endpoint                  | Descripción                                     |
-| ------ | ------------------------- | ----------------------------------------------- |
-| GET    | `/api/items`              | Listar todos los ítems                          |
-| GET    | `/api/items/{id}`         | Obtener un ítem por su ID                       |
-| POST   | `/api/items/create`       | Crear un nuevo ítem                             |
-| POST   | `/api/items/create-items` | Crear múltiples ítems                           |
-| PUT    | `/api/items/update/{id}`  | Actualizar un ítem por su ID                    |
-| DELETE | `/api/items/delete/{id}`  | Eliminar un ítem por su ID                      |
-| POST   | `/api/buy`                | Simular la compra de productos (crea una orden) |
+| Field        | Value                |
+|--------------|----------------------|
+| JDBC URL     | `jdbc:h2:mem:testdb` |
+| User Name    | `sa`                 |
+| Password     | (leave empty)        |
 
 ---
 
-## 📋 Ejemplo de JSON para crear un producto
+## 📦 Available Endpoints (Examples)
 
+| Method | Endpoint                  | Description                                         |
+|--------|---------------------------|-----------------------------------------------------|
+| GET    | `/api/items`              | List all items                                      |
+| GET    | `/api/items/{id}`         | Get an item by its ID                              |
+| POST   | `/api/items/create`       | Create a new item                                  |
+| POST   | `/api/items/create-items` | Create multiple items                              |
+| PUT    | `/api/items/update/{id}`  | Update an item by its ID                           |
+| DELETE | `/api/items/delete/{id}`  | Delete an item by its ID                           |
+| POST   | `/api/buy`                | Simulate a purchase of products (creates an order) |
+
+---
+
+## 📋 Example JSON to Create a Product
+
+```json
 {
   "nombre": "Teclado mecánico",
   "categoria": "Electrónica",
   "precio": 49.99,
   "stock": 10
 }
+```
+
+> 💡 *If you're adapting for an English-speaking API, consider using `"name"`, `"category"`, `"price"`, and `"stock"` instead of `"nombre"`, etc.*
 
 ---
 
-▶️ Cómo ejecutar el proyecto
+▶️ How to Run the Project
 
-## Clonar el repositorio
-git clone https://github.com/tu-usuario/ecommerce-springboot.git
+```bash
+# Clone the repository
+git clone https://github.com/your-username/ecommerce-springboot.git
 cd ecommerce-springboot
 
-## Ejecutar con Maven
+# Run with Maven
 ./mvnw spring-boot:run
+```
 
 ---
 
-🛠 Próximas mejoras
-🔐 Autenticación y roles (admin / cliente)
-🛒 Carrito de compras
-🧾 Gestión de pedidos
+🛠 Upcoming Improvements
 
-
+- 🔐 Authentication and roles (admin / customer)
+- 🛒 Shopping cart feature
+- 🧾 Order management system
