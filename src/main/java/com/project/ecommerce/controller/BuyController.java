@@ -1,5 +1,6 @@
 package com.project.ecommerce.controller;
 
+import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.service.order.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,12 @@ public class BuyController {
     OrderServiceImpl orderServiceImpl;
 
     @PostMapping("")
-    public ResponseEntity<?> buyItems(@RequestBody List<Order> orderList, @RequestBody Long userId){
+    public ResponseEntity<?> buyItems(@RequestBody List<Item> itemList){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(orderServiceImpl.buyItems(orderList));
+            return ResponseEntity.status(HttpStatus.OK).body(orderServiceImpl.buyItems(itemList));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
 
 }

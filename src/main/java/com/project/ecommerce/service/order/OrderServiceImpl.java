@@ -1,13 +1,16 @@
 package com.project.ecommerce.service.order;
 
+import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.repository.ItemRepository;
 import com.project.ecommerce.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,12 +79,21 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public List<Order> buyItems(List<Order> orderList) throws Exception {
+    public List<Order> buyItems(List<Item> itemList) throws Exception {
         try{
-            for (int i = 0; i < orderList.size(); i++) {
-                //TODO check stock
-                //if (checkStock(orderList.get(i))) {}
-                orderRepository.save(orderList.get(i));
+            List<Order> orderList = new ArrayList<>();
+            for (Item item : itemList) {
+                if (checkStock(item)) {
+                    Order order = new Order();
+                    order.setItemId(item.getId());
+                    order.setQuantity(item.getQuantity());
+                    //TODO: pending to retrieve userId
+                    order.setUserId(1L);
+                    orderRepository.save(order);
+                    orderList.add(order);
+                }else{
+                    throw new Exception("There are items with no enough stock");
+                }
             }
             return orderList;
         } catch (Exception e) {
@@ -89,10 +101,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public boolean checkStock(Order order) {
-        if(true){
-            return true;
+    public boolean checkStock(Item item) {
+        Optional<Item> itemRetrieved = itemRepository.findById(item.getId());
+        if(itemRetrieved.get().getQuantity() < item.getQuantity()){
+            return false;
         }
-        return false;
+        return true;
     }
 }
