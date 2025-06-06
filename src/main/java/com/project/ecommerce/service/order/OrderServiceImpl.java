@@ -20,9 +20,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
     private ItemServiceImpl itemServiceImpl;
 
     @Override
@@ -105,20 +102,23 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public boolean checkStock(Item item) {
-        Optional<Item> itemRetrieved = itemRepository.findById(item.getId());
-        if(itemRetrieved.get().getQuantity() < item.getQuantity()){
-            return false;
+    public boolean checkStock(Item item) throws Exception {
+        try {
+            Item itemRetrieved = itemServiceImpl.findById(item.getId());
+            if (itemRetrieved.getQuantity() < item.getQuantity()) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
-        return true;
     }
 
     public void removeStock(Item item) throws Exception {
         try{
-            Optional<Item> itemRetrieved = itemRepository.findById(item.getId());
-            Item updatedItem = itemRetrieved.get();
+            Item itemRetrieved = itemServiceImpl.findById(item.getId());
             Integer stockToRemove = item.getQuantity();
-            updatedItem.setQuantity(itemRetrieved.get().getQuantity() - stockToRemove);
+            item.setQuantity(itemRetrieved.getQuantity() - stockToRemove);
             itemServiceImpl.update(item.getId(), item);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
