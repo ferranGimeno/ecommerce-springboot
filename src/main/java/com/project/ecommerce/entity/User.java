@@ -16,10 +16,16 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
+    private String email;
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(name = "creationDate")
     private Date creationDate;
+
+    @Column(name = "enabled")
+    private boolean enabled;
 
     public Long getId() {
         return id;
@@ -31,5 +37,13 @@ public class User implements Serializable {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 }
