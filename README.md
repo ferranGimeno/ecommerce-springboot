@@ -84,7 +84,7 @@ The app is pre-configured to use an in-memory H2 database. You can access the we
 
 ---
 
-▶️ How to Run the Project
+## ▶️ How to Run the Project
 
 ```bash
 # Clone the repository
@@ -97,7 +97,7 @@ cd ecommerce-springboot
 
 ---
 
-🛠 Upcoming Improvements
+## 🛠 Upcoming Improvements
 
 - 🔐 Authentication and roles (admin / customer)
 - 🛒 Shopping cart feature
