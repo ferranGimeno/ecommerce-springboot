@@ -75,8 +75,8 @@ The app is pre-configured to use an in-memory H2 database. You can access the we
 
 ```json
 {
-  "name": "Teclado mecánico",
-  "description": "Electrónica",
+  "name": "Keyboard",
+  "description": "Electronic device",
   "quantity": 10,
   "price": 49.99
 }
