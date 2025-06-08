@@ -16,10 +16,10 @@ public class User implements Serializable {
     private Long id;
 
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
     @Column(name = "email")
     private String email;
@@ -32,12 +32,12 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
     public String getEmail() {
