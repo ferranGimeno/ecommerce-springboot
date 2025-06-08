@@ -2,10 +2,12 @@ package com.project.ecommerce.entity;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -16,10 +18,9 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "creationDate")
-    private Date creationDate;
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
 
     public Long getId() {
         return id;
@@ -29,7 +30,7 @@ public class User implements Serializable {
         return name;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 }

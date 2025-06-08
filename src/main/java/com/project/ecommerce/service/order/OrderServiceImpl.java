@@ -2,9 +2,10 @@ package com.project.ecommerce.service.order;
 
 import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
-import com.project.ecommerce.repository.ItemRepository;
+import com.project.ecommerce.entity.OrderItem;
 import com.project.ecommerce.repository.OrderRepository;
 import com.project.ecommerce.service.item.ItemServiceImpl;
+import com.project.ecommerce.service.orderItem.OrderItemServiceImpl;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ItemServiceImpl itemServiceImpl;
+
+    @Autowired
+    private OrderItemServiceImpl orderItemServiceImpl;
 
     @Override
     @Transactional
@@ -79,22 +83,24 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public List<Order> buyItems(List<Item> itemList) throws Exception {
+    public Order buyItems(List<Item> itemList) throws Exception {
         try{
-            List<Order> orderList = new ArrayList<>();
             //Check stock for entire order, if there is some item not possible, return error
             if (checkStock(itemList)) {
+                Order order = new Order();
+                //TODO: pending to retrieve userId
+                order.setUserId(1L);
+                orderRepository.save(order);
                 for (Item item : itemList) {
-                    Order order = new Order();
-                    order.setItemId(item.getId());
-                    order.setQuantity(item.getQuantity());
-                    //TODO: pending to retrieve userId
-                    order.setUserId(1L);
-                    orderRepository.save(order);
-                    orderList.add(order);
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.setItem(item);
+                    orderItem.setOrder(order);
+                    orderItem.setQuantity(item.getQuantity());
+                    orderItemServiceImpl.save(orderItem);
+
                     removeStock(item);
                 }
-                return orderList;
+                return order;
             }else{
                 throw new Exception("There are items with not enough stock");
             }
@@ -122,6 +128,7 @@ public class OrderServiceImpl implements OrderService {
             Item itemRetrieved = itemServiceImpl.findById(item.getId());
             Integer stockToRemove = item.getQuantity();
             item.setQuantity(itemRetrieved.getQuantity() - stockToRemove);
+            //TODO: is not removing the stock in Item table
             itemServiceImpl.update(item.getId(), item);
         } catch (Exception e) {
             throw new Exception(e.getMessage());

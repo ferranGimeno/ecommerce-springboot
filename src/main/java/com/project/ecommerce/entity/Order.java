@@ -2,10 +2,12 @@ package com.project.ecommerce.entity;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "order")
 public class Order implements Serializable {
@@ -13,19 +15,12 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "itemId")
-    private Long itemId;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "creationDate")
-    private Date date;
+    @Column(name = "creation_date")
+    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -35,15 +30,7 @@ public class Order implements Serializable {
         return userId;
     }
 
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -55,15 +42,7 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
