@@ -3,7 +3,9 @@ package com.project.ecommerce.service.order;
 import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.entity.OrderItem;
+import com.project.ecommerce.entity.dto.StockReductionMessage;
 import com.project.ecommerce.repository.OrderRepository;
+import com.project.ecommerce.service.RabbitMQProducerService;
 import com.project.ecommerce.service.item.ItemServiceImpl;
 import com.project.ecommerce.service.orderItem.OrderItemServiceImpl;
 import jakarta.transaction.Transactional;
@@ -11,7 +13,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemServiceImpl orderItemServiceImpl;
+
+    @Autowired
+    private RabbitMQProducerService rabbitMQProducerService;
 
     @Override
     @Transactional
@@ -98,7 +102,9 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setQuantity(item.getQuantity());
                     orderItemServiceImpl.save(orderItem);
 
-                    removeStock(item);
+                    //Send to RabbitMQ queue
+                    StockReductionMessage msg = new StockReductionMessage(item);
+                    rabbitMQProducerService.sendToStockQueue(msg);
                 }
                 return order;
             }else{
@@ -118,18 +124,6 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
             return true;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
-    public void removeStock(Item item) throws Exception {
-        try{
-            Item itemRetrieved = itemServiceImpl.findById(item.getId());
-            Integer stockToRemove = item.getQuantity();
-            item.setQuantity(itemRetrieved.getQuantity() - stockToRemove);
-            //TODO: is not removing the stock in Item table
-            itemServiceImpl.update(item.getId(), item);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
