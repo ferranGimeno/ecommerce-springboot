@@ -130,6 +130,7 @@ public class OrderServiceImpl implements OrderService {
             Item itemRetrieved = itemServiceImpl.findById(item.getId());
             Integer stockToRemove = item.getQuantity();
             item.setQuantity(itemRetrieved.getQuantity() - stockToRemove);
+            //TODO: is not removing the stock in Item table
             itemServiceImpl.update(item.getId(), item);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
