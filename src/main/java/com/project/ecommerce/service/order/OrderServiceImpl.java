@@ -83,16 +83,14 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public List<Order> buyItems(List<Item> itemList) throws Exception {
+    public Order buyItems(List<Item> itemList) throws Exception {
         try{
-            List<Order> orderList = new ArrayList<>();
             //Check stock for entire order, if there is some item not possible, return error
             if (checkStock(itemList)) {
                 Order order = new Order();
                 //TODO: pending to retrieve userId
                 order.setUserId(1L);
                 orderRepository.save(order);
-                orderList.add(order);
                 for (Item item : itemList) {
                     OrderItem orderItem = new OrderItem();
                     orderItem.setItem(item);
@@ -102,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 
                     removeStock(item);
                 }
-                return orderList;
+                return order;
             }else{
                 throw new Exception("There are items with not enough stock");
             }
