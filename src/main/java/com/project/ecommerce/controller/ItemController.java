@@ -61,7 +61,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(itemServiceImpl.delete(id));
         } catch (Exception e) {
