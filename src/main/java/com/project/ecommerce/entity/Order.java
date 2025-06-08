@@ -16,12 +16,6 @@ public class Order implements Serializable {
     @Column(name = "userId")
     private Long userId;
 
-    @Column(name = "itemId")
-    private Long itemId;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(name = "creationDate")
@@ -35,14 +29,6 @@ public class Order implements Serializable {
         return userId;
     }
 
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -53,14 +39,6 @@ public class Order implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public void setDate(Date date) {

@@ -2,9 +2,10 @@ package com.project.ecommerce.service.order;
 
 import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
-import com.project.ecommerce.repository.ItemRepository;
+import com.project.ecommerce.entity.OrderItem;
 import com.project.ecommerce.repository.OrderRepository;
 import com.project.ecommerce.service.item.ItemServiceImpl;
+import com.project.ecommerce.service.orderItem.OrderItemServiceImpl;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ItemServiceImpl itemServiceImpl;
+
+    @Autowired
+    private OrderItemServiceImpl orderItemServiceImpl;
 
     @Override
     @Transactional
@@ -84,14 +88,18 @@ public class OrderServiceImpl implements OrderService {
             List<Order> orderList = new ArrayList<>();
             //Check stock for entire order, if there is some item not possible, return error
             if (checkStock(itemList)) {
+                Order order = new Order();
+                //TODO: pending to retrieve userId
+                order.setUserId(1L);
+                orderRepository.save(order);
+                orderList.add(order);
                 for (Item item : itemList) {
-                    Order order = new Order();
-                    order.setItemId(item.getId());
-                    order.setQuantity(item.getQuantity());
-                    //TODO: pending to retrieve userId
-                    order.setUserId(1L);
-                    orderRepository.save(order);
-                    orderList.add(order);
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.setItem(item);
+                    orderItem.setOrder(order);
+                    orderItem.setQuantity(item.getQuantity());
+                    orderItemServiceImpl.save(orderItem);
+
                     removeStock(item);
                 }
                 return orderList;

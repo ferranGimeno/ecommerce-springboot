@@ -10,14 +10,45 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
-    @MapsId("orderId")
     @JoinColumn(name = "orderId")
     private Order order;
 
     @ManyToOne
-    @MapsId("itemId")
     @JoinColumn(name = "itemId")
     private Item item;
 
-    private int quantity;
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
