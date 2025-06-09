@@ -4,6 +4,7 @@ import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 import com.project.ecommerce.entity.OrderItem;
 import com.project.ecommerce.repository.OrderRepository;
+import com.project.ecommerce.service.item.ItemService;
 import com.project.ecommerce.service.item.ItemServiceImpl;
 import com.project.ecommerce.service.orderItem.OrderItemServiceImpl;
 import jakarta.transaction.Transactional;
@@ -61,9 +62,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order update(Long id, Order entity) throws Exception {
         try {
-            Optional<Order> entityOptional = orderRepository.findById(id);
-            Order order = entityOptional.get();
-            return orderRepository.save(order);
+            //Optional<Order> entityOptional = orderRepository.findById(id);
+            //Order order = entityOptional.get();
+            return orderRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

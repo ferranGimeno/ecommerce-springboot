@@ -49,9 +49,9 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Transactional
     public OrderItem update(Long id, OrderItem entity) throws Exception {
         try {
-            Optional<OrderItem> entityOptional = orderItemRepository.findById(id);
-            OrderItem orderItem = entityOptional.get();
-            return orderItemRepository.save(orderItem);
+            //Optional<OrderItem> entityOptional = orderItemRepository.findById(id);
+            //OrderItem orderItem = entityOptional.get();
+            return orderItemRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

@@ -49,9 +49,9 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public Item update(Long id, Item entity) throws Exception {
         try {
-            Optional<Item> entityOptional = itemRepository.findById(id);
-            Item item = entityOptional.get();
-            return itemRepository.save(item);
+            //Optional<Item> entityOptional = itemRepository.findById(id);
+            //Item item = entityOptional.get();
+            return itemRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
