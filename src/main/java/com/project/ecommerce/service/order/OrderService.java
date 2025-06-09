@@ -1,5 +1,6 @@
 package com.project.ecommerce.service.order;
 
+import com.project.ecommerce.entity.Item;
 import com.project.ecommerce.entity.Order;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface OrderService {
     public Order save(Order entity) throws Exception;
     public Order update(Long id, Order entity) throws Exception;
     public boolean delete(Long id) throws Exception;
-}
+    public Order buyItems(List<Item> itemList) throws Exception;
+    public boolean checkStock(List<Item> itemList) throws Exception;
+    }

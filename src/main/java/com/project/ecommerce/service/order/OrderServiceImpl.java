@@ -98,7 +98,10 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setQuantity(item.getQuantity());
                     orderItemServiceImpl.save(orderItem);
 
-                    removeStock(item);
+                    //TODO: enable RabbitMQ
+                    //Send to RabbitMQ queue
+                    //stockReductionMessage msg = new StockReductionMessage(item);
+                    //rabbitMQProducerService.sendToStockQueue(msg);
                 }
                 return order;
             }else{
