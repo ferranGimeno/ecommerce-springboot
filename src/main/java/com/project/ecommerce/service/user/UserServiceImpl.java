@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User update(Long id, User entity) throws Exception {
         try {
-            Optional<User> entityOptional = userRepository.findById(id);
-            User user = entityOptional.get();
-            return userRepository.save(user);
+            //Optional<User> entityOptional = userRepository.findById(id);
+            //User user = entityOptional.get();
+            return userRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
