@@ -6,6 +6,7 @@ import com.project.ecommerce.entity.OrderItem;
 import com.project.ecommerce.entity.dto.StockReductionMessage;
 import com.project.ecommerce.repository.OrderRepository;
 import com.project.ecommerce.service.RabbitMQProducerService;
+import com.project.ecommerce.service.item.ItemService;
 import com.project.ecommerce.service.item.ItemServiceImpl;
 import com.project.ecommerce.service.orderItem.OrderItemServiceImpl;
 import jakarta.transaction.Transactional;
@@ -65,9 +66,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order update(Long id, Order entity) throws Exception {
         try {
-            Optional<Order> entityOptional = orderRepository.findById(id);
-            Order order = entityOptional.get();
-            return orderRepository.save(order);
+            //Optional<Order> entityOptional = orderRepository.findById(id);
+            //Order order = entityOptional.get();
+            return orderRepository.save(entity);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -101,10 +102,13 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setOrder(order);
                     orderItem.setQuantity(item.getQuantity());
                     orderItemServiceImpl.save(orderItem);
+                  
+                    removeStock(item);
 
+                    //TODO: enable RabbitMQ
                     //Send to RabbitMQ queue
-                    StockReductionMessage msg = new StockReductionMessage(item);
-                    rabbitMQProducerService.sendToStockQueue(msg);
+                    //stockReductionMessage msg = new StockReductionMessage(item);
+                    //rabbitMQProducerService.sendToStockQueue(msg);
                 }
                 return order;
             }else{
